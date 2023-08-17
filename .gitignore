@@ -1,0 +1,4 @@
+/venv
+/tf_automation_api/tf_automation_api/__pycache__
+/tf_automation_api/tf_automation_api/migrations
+/tf_automation_api/*_generated.tfvars

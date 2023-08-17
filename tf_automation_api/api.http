@@ -1,0 +1,152 @@
+@host = http://127.0.0.1:8000
+
+### RESOURCE GROUPS
+POST {{host}}/save-resource/rg/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "uuid" : "testuuid1",
+    "portfolio": "singtel-git-ti-idam",
+    "environment": "dev",
+    "data" : [
+		{
+		"name" : "compute",
+		"region" : "region1"
+		}
+	]
+}
+
+### KEY VAULTS
+POST {{host}}/save-resource/kv/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "uuid" : "testuuid2",
+    "portfolio" : ,
+    "environment": ,
+    "data" : [
+        {
+        "name" : "kv-01",
+        "resource_group_key" : "rg-keyvault",
+        "sku_name" : "standard"
+        }
+    ]
+}
+
+### RETURN ALL RESOURCE GROUPS + KEYVAULTS
+POST {{host}}/rgkv/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "uuid" : "testuuid2"
+}
+
+### DELETE ALL RESOURCE GROUPS + KEYVAULTS BY UUID
+POST {{host}}/end-session/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "uuid" : "testuuid2"
+}
+
+### VIRTUAL MACHINES 
+POST {{host}}/make-resource/vm/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "portfolio" : "singtel-git-ti-idam",
+    "environment": "dev",
+    "data" : [
+        {
+        "name" : "PPTAGTW001",
+        "resource_group_key" : "tooling",
+        "os" : "windows",
+        "lz_key" : "caf_auditsub_nprd",
+        "keyvault_key" : "tooling_kv",
+		"nic_lz_key" : "singtel-git-ti-toolings-level2-nprd-sea-01",
+        "nic_vnet_key" : "vnet1",
+        "nic_subnet_key" : "tier2_subnet",
+        "nic_private_ip_address_allocation" : "Dynamic",
+        "nic_private_ip_address" : "10.169.2.23",
+        "size" : "Standard_D4s_v3",
+        "zone" : "1",
+        "admin_username_key" : "windows-admin-username",
+        "admin_password_key" : "windows-admin-password",
+        "license_type" : "Windows_Server",
+        "puppet_tag": "{helowsfsfsfsfsdfs}",
+        "tags": "key:value; hello:world;"
+        }
+    ] 
+}
+
+### SQL Managed Instances
+POST {{host}}/make-resource/sqlmi/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "data" : [
+        {
+        "sqmlmi_name" : "tempsqlmidev01",
+        "resource_group_key" : "tempsqlmidev01",
+        "sku_name" : "GP_Gen5",
+        "sqlmi_admin_login" : "adminusergrav",
+        "network_lz_key" : "singtel-git-ti-template-level2-dev-sea-01",
+        "network_vnet_key" : "vnet1",
+        "network_subnet_key" : "subnet1",
+        "size" : "64",
+        "vcores" : "4",
+        "database_name" : "temp_dev_identityiq1"
+        },
+        {
+        "sqmlmi_name" : "tempsqlmidev02",
+        "resource_group_key" : "tempsqlmidev02",
+        "sku_name" : "GP_Gen5",
+        "sqlmi_admin_login" : "adminusergrav",
+        "network_lz_key" : "singtel-git-ti-template-level2-dev-sea-01",
+        "network_vnet_key" : "vnet2",
+        "network_subnet_key" : "subnet",
+        "size" : "64",
+        "vcores" : "4",
+        "database_name" : "temp_dev_identityiq2"
+        }
+    ]
+}
+
+### PostgreSQL 
+POST {{host}}/make-resource/pgdb/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "data" : [
+        {
+        "name" : "singtel-git-corpit-pgdb-dev-sea-01",
+        "region" : "region1",
+        "version" : "12",
+        "sku_name" : "GP_Standard_D2s_v3",
+        "storage_mb" : "131072",
+        "zone" : "1",
+        "resource_group_key" : "pgdb_corpit_01",
+        "vnet_key" : "vnet1",
+        "vnet_subnet_key" : "tier1_pgdb_subnet",
+        "vnet_lz_key" : "singtel-git-corpit-intranet-level2-dev-sea-01",
+        "private_dns_zone_key" : "postgres_azure_01",
+        "private_dns_zone_lz_key" : "singtel-git-core-pep-dns-sea-01",
+        "db_name" : "corpitpgdb1"
+        },
+        {
+        "name" : "singtel-git-corpit-pgdb-dev-sea-02",
+        "region" : "region2",
+        "version" : "12",
+        "sku_name" : "GP_Standard_D2s_v3",
+        "storage_mb" : "131072",
+        "zone" : "2",
+        "resource_group_key" : "pgdb_corpit_02",
+        "vnet_key" : "vnet2",
+        "vnet_subnet_key" : "tier2_pgdb_subnet",
+        "vnet_lz_key" : "singtel-git-corpit-intranet-level2-dev-sea-02",
+        "private_dns_zone_key" : "postgres_azure_02",
+        "private_dns_zone_lz_key" : "singtel-git-core-pep-dns-sea-02",
+        "db_name" : "corpitpgdb2"
+        }
+    ]
+}
